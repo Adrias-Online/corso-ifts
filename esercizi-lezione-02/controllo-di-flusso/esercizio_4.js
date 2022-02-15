@@ -12,11 +12,12 @@ var totale = 0;
 for (var i = 0; i < array.length; i++) {
     var elementoArray = array[i];
     totale = totale + elementoArray;
-    console.log("totale: " + totale);
-    var x = i + 1;
-    console.log("media parziale: " + (totale/x));
-    if (elementoArray < (totale/x )){
-        arrayMinori.push(elementoArray); //push è la funzione della classe Array per aggiungere un elemento nella lista.
+}
+
+for (var i = 0; i < array.length; i++) {
+    var element = array[i];
+    if (element < (totale/array.length )){
+        arrayMinori.push(element); //push è la funzione della classe Array per aggiungere un elemento nella lista.
     }
 }
 
