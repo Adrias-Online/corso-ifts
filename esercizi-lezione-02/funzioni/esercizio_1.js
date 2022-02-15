@@ -31,4 +31,5 @@
           p++;
       }
   }
+  isNumeroPrimo(4);
   stampaNumeriPrimi(20);
