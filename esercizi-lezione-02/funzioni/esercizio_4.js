@@ -5,8 +5,8 @@
  *  - -1 Se A è più vicino a N rispetto a B
  */
  function distanza(a, b, n){
-    var z = a - n;
-    var x = b - n;
+    var z = Math.abs(a - n);
+    var x = Math.abs(b - n);
     if (z === x){
         return 0;
     }else if (x < z) {
@@ -15,6 +15,6 @@
         return -1;
     }
 }
-console.log(distanza(4,4,2)); //caso a
-console.log(distanza(4,3,2)); //caso b
-console.log(distanza(3,4,2)); //caso c
+console.log(distanza(4,4,10)); //caso a
+console.log(distanza(4,3,10)); //caso c
+console.log(distanza(3,4,10)); //caso b
