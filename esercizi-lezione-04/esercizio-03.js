@@ -46,7 +46,7 @@ class Garage {
                 if (automobile.marca.toLowerCase() === el.marca.toLowerCase()
                     && automobile.modello.toLowerCase() === el.modello.toLowerCase()){
                         this.database.splice(i, 1);
-                    }
+                }
             }
         }
     }
@@ -58,3 +58,16 @@ class Garage {
         }
     }
 }
+
+var garage = new Garage();
+
+var fiat500 = new Automobile("Fiat", "500L");
+garage.aggiungiAutomobile(fiat500);
+garage.aggiungiAutomobile("");
+garage.stampaAutomobili();
+console.log("----------------");
+garage.aggiungiAutomobile(new Automobile("Mercedes", "X1"));
+garage.stampaAutomobili();
+console.log("----------------");
+garage.rimuoviAutomobile(fiat500);
+garage.stampaAutomobili();
