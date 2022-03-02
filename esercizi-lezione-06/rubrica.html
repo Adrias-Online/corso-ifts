@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>La mia rubrica</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>La mia Rubrica</h1>
+        <div class="row">
+            <div class="col-md">
+                <div id="rubrica" class="container border"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col h2">Nuovo contatto</div>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                
+                    <div class="form-group row">
+                      <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="nome" value="Inserisci il nome">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="cognome" class="col-sm-2 col-form-label">Cognome</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="cognome" value="Inserisci il cognome">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="telefono" value="Inserisci il telefono">
+                        </div>
+                    </div>
+                    <button id="aggiungiContatto" type="submit" class="btn btn-primary">Aggiungi</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="rubrica.js"></script>
+
+</html>
