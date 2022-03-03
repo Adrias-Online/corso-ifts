@@ -43,11 +43,13 @@ class Rubrica {
     constructor() {
         this.database = [];
     }
+
     stampaContatti(ordinamento) {
+        var compare = (a,b) => (a.cognome > b.cognome) ? 1 : ((b.cognome > a.cognome) ? -1 : 0);
         if (ordinamento.toLowerCase() === "az") { 
-            this.database.sort();
+            this.database.sort(compare);
         }else{
-            this.database.sort();
+            this.database.sort(compare);
             this.database.reverse();
         }
         for (var i = 0; i < this.database.length; i++) {
