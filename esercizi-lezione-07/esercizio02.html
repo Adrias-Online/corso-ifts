@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>Esercizio 2</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2 id="risultato"></h2>
+        <div id="errore"></div>
+    </div>
+    <div class="container">
+        <div class="form-group row">
+            <label for="operando1" class="col-sm-2 col-form-label">operando 1</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="operando1" placeholder="Inserisci un numero">
+            </div>
+          </div>
+          <div class="form-group row">
+              <label for="operando2" class="col-sm-2 col-form-label">operando 2</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="operando2" placeholder="Inserisci un numero">
+              </div>
+          </div>
+          <button type="submit" class="btn btn-primary" onclick="calcolatrice('somma')">Somma</button>
+          <button type="submit" class="btn btn-primary" onclick="calcolatrice('sottrazione')">Sottrazione</button>
+          <button type="submit" class="btn btn-primary" onclick="calcolatrice('divisione')">Divisione</button>
+          <button type="submit" class="btn btn-primary" onclick="calcolatrice('moltiplicazione')">Moltiplicazione</button>
+    </div>
+    <script>
+        function calcolatrice(operatore){
+            var risultatoEl = document.getElementById("risultato");
+            risultatoEl.innerHTML = "";
+            var errore = document.getElementById("errore");
+            errore.style.display = "none";
+            var x = parseInt(document.getElementById("operando1").value);
+            var y = parseInt(document.getElementById("operando2").value);
+            var risultato = 0;
+            switch (operatore){
+                case "somma": 
+                    risultato = x + y;
+                    break;
+                case "divisione": 
+                    risultato = x / y;
+                    break;
+                case "moltiplicazione":
+                    risultato = x * y;
+                    break;
+                case "sottrazione":
+                    risultato = x - y;
+                    break;
+                default: 
+                    errore.style.display = "block";
+                    errore.className = "alert alert-danger";
+                    errore.innerHTML = "Funzione non prevista";
+                    break;
+            }
+            risultatoEl.innerHTML = risultato;
+        }
+    </script>
+</body>
+</html>

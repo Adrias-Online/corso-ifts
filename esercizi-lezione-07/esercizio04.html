@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <style>
+        ul {list-style-type: none;}
+    </style>
+    <title>Esercizio 4</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="risultato"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <ul id="galleria">
+                    <li>
+                        <img class="d-inline" src="https://via.placeholder.com/1000x500.png" alt="immagine 1" />
+                    </li>
+                    <li>
+                        <img class="d-none" src="https://via.placeholder.com/1000x250.png" alt="immagine 2" />
+                    </li>
+                    <li>
+                        <img class="d-none" src="https://via.placeholder.com/1000x100.png" alt="immagine 3" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item"><a id="prev" class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a id="next" class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
+        </div>
+    </div>
+    <script>
+        var prev = document.getElementById("prev");
+        prev.onclick = function(){
+            switchImage((i, l) => i > 0 ? i - 1 : l - 1);
+        };
+        var next = document.getElementById("next");
+        next.onclick = function(){
+            switchImage((i, l) => i >= 0 && i < l - 1 ? i + 1 : 0);
+        };
+        function switchImage(x){
+            var galleria = document.getElementById("galleria");
+            var imgs = galleria.getElementsByTagName('img');
+            var p = 0;
+            var c = 0;
+            for (let i = 0; i < imgs.length; i++) {
+                const element = imgs[i];
+                if (element.className === "d-inline"){
+                    p = x(i, imgs.length);
+                    c = i;
+                    break;
+                }
+            }
+            console.log(p);
+            imgs[c].className = "d-none";
+            imgs[p].className = "d-inline";
+        }
+    </script>
+</body>
+
+</html>
