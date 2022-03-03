@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <style>
-        .btn-calc {
-            width: 100%;
-        }
         .nopad {
             padding-left: 0!important;
             padding-right: 0!important;
@@ -44,70 +41,134 @@
                 <div class="col">
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-secondary btn-calc">%</button>
+                    <button onclick="clickOperazione('%')" type="button" class="btn btn-secondary btn-block">%</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-secondary btn-calc">CE</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">9</button>
-                </div>
-                <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">8</button>
-                </div>
-                <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">7</button>
-                </div>
-                <div class="col nopad">
-                    <button type="button" class="btn btn-secondary btn-calc border">÷</button>
+                    <button onclick="clean()" type="button" class="btn btn-secondary btn-block">CE</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">6</button>
+                    <button onclick="clickNumero(9)" type="button" class="btn btn-light btn-block border">9</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">5</button>
+                    <button onclick="clickNumero(8)" type="button" class="btn btn-light btn-block border">8</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">4</button>
+                    <button onclick="clickNumero(7)" type="button" class="btn btn-light btn-block border">7</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-secondary btn-calc border">*</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">3</button>
-                </div>
-                <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">2</button>
-                </div>
-                <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">1</button>
-                </div>
-                <div class="col nopad">
-                    <button type="button" class="btn btn-secondary btn-calc border">-</button>
+                    <button onclick="clickOperazione('/')" type="button" class="btn btn-secondary btn-block border">÷</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">0</button>
+                    <button onclick="clickNumero(6)" type="button" class="btn btn-light btn-block border">6</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-light btn-calc border">.</button>
+                    <button onclick="clickNumero(5)" type="button" class="btn btn-light btn-block border">5</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-primary btn-calc border">=</button>
+                    <button onclick="clickNumero(4)" type="button" class="btn btn-light btn-block border">4</button>
                 </div>
                 <div class="col nopad">
-                    <button type="button" class="btn btn-secondary btn-calc border">+</button>
+                    <button onclick="clickOperazione('*')" type="button" class="btn btn-secondary btn-block border">*</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col nopad">
+                    <button onclick="clickNumero(3)" type="button" class="btn btn-light btn-block border">3</button>
+                </div>
+                <div class="col nopad">
+                    <button onclick="clickNumero(2)" type="button" class="btn btn-light btn-block border">2</button>
+                </div>
+                <div class="col nopad">
+                    <button onclick="clickNumero(1)" type="button" class="btn btn-light btn-block border">1</button>
+                </div>
+                <div class="col nopad">
+                    <button onclick="clickOperazione('-')" type="button" class="btn btn-secondary btn-block border">-</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col nopad">
+                    <button onclick="clickNumero(0)" type="button" class="btn btn-light btn-block border">0</button>
+                </div>
+                <div class="col nopad">
+                    <button onclick="clickNumero('.')" type="button" class="btn btn-light btn-block border">.</button>
+                </div>
+                <div class="col nopad">
+                    <button onclick="esegui()" type="button" class="btn btn-primary btn-block border">=</button>
+                </div>
+                <div class="col nopad">
+                    <button onclick="clickOperazione('+')" type="button" class="btn btn-secondary btn-block border">+</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        var operando1 = null;
+        var operando2 = null;
+        var operazioneDaFare = "";
+        var storicoOperazioni = [];
+        function clickNumero(numero){
+            var calcolo = document.getElementById("calcolo");
+            if (operando2 !== null && operazioneDaFare === ""){
+                var cal = calcolo.value; 
+                var numeroDisplay = cal + numero;
+                calcolo.value = numeroDisplay;
+                operando1 = parseFloat(numeroDisplay);
+                console.log("operando1:" + operando1);
+            }else {
+                if (operando2 === null){
+                    calcolo.value = "";
+                }
+                var cal = calcolo.value; 
+                var numeroDisplay = cal + numero;
+                calcolo.value = numeroDisplay;
+                operando2 = parseFloat(numeroDisplay);
+                console.log("operando2:"+ operando2);
+            }
+        }
+        function clean(){
+            document.getElementById("calcolo").value = "";
+            operando1 = null;
+            operando2 = null;
+            operazioneDaFare = "";
+            storicoOperazioni = [];
+        }
+
+        function clickOperazione(operazione){
+            operazioneDaFare = operazione;
+            operando2 = null;
+            storicoOperazioni.push(operazione);
+        }
+
+        function esegui(){
+            var risultato = 0;
+            switch (operazioneDaFare){
+                case "+": 
+                    console.log("operando1("+operando1+") + operando2("+operando2+")" );
+                    risultato = operando1 + operando2;
+                    break;
+                case "/": 
+                console.log("operando1("+operando1+") / operando2("+operando2+")" );
+                    risultato = operando1 / operando2;
+                    break;
+                case "*":
+                console.log("operando1("+operando1+") * operando2("+operando2+")" );
+                    risultato = operando1 * operando2;
+                    break;
+                case "-":
+                    console.log("operando1("+operando1+") - operando2("+operando2+")" );
+                    risultato = operando1 - operando2;
+                    break;
+            }
+            operando1 = risultato;
+            operando2 = null;
+            operazioneDaFare = "";
+            document.getElementById("calcolo").value = risultato;
+        }
+    </script>
 </body>
 
 </html>
