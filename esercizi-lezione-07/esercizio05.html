@@ -24,18 +24,18 @@
 
         <div class="row mt-3" style="height: 100px;">
             <div class="col-md">
-                <span class="text-center text-light bg-primary p-3">Tavolo 1</span>
+                <span onclick="mostraOrdine(1)" class="text-center text-light bg-primary p-3">Tavolo 1</span>
             </div>
             <div class="col-md">
-                <span class="text-center text-light bg-primary p-3">Tavolo 2</span>
+                <span onclick="mostraOrdine(2)" class="text-center text-light bg-primary p-3">Tavolo 2</span>
             </div>
         </div>
         <div class="row"style="height: 100px;">
             <div class="col-md">
-                <span class="text-center text-light bg-primary p-3">Tavolo 3</span>
+                <span onclick="mostraOrdine(3)" class="text-center text-light bg-primary p-3">Tavolo 3</span>
             </div>
             <div class="col-md">
-                <span class="text-center text-light bg-primary p-3">Tavolo 4</span>
+                <span onclick="mostraOrdine(4)" class="text-center text-light bg-primary p-3">Tavolo 4</span>
             </div>
         </div>
     </div>
@@ -44,6 +44,9 @@
         <div class="row">
             <div class="col-md">
                 <!--l' ordine deve essere visualizzato qui-->
+                <div id="visualizza">
+
+                </div>
             </div>
         </div>
     </div>
@@ -66,8 +69,38 @@
                 <textarea class="form-control" id="ordine" rows="10"></textarea>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Salva ordine</button>
+        <button onclick="aggiungiOrdine()" type="submit" class="btn btn-primary">Salva ordine</button>
     </div>
-</body>
+    <script>
+        var databaseOrdini = [];
+        function aggiungiOrdine(){
+            var numeroTavolo = parseInt(document.getElementById("tavolo").value);
+            var nuovoOrdine = document.getElementById("ordine").value;
+            var presente = false;
+            for (let i = 0; i < databaseOrdini.length; i++) {
+                const ordineDB = databaseOrdini[i];
+                if (ordineDB.numeroTavolo === numeroTavolo){
+                    ordineDB.ordine = nuovoOrdine;
+                    presente = true;
+                }
+            }
+            if (!presente){
+                databaseOrdini.push({
+                    numeroTavolo, 
+                    ordine: nuovoOrdine
+                });
+            }
+        }
 
+        function mostraOrdine(numeroTavolo){
+            var divVisualizza = document.getElementById("visualizza");
+            for (let i = 0; i < databaseOrdini.length; i++) {
+                const ordineDB = databaseOrdini[i];
+                if (ordineDB.numeroTavolo === numeroTavolo){
+                    divVisualizza.append(ordineDB.ordine);
+                }
+            }
+        }
+    </script>
+</body>
 </html>
