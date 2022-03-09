@@ -72,7 +72,9 @@
         <button onclick="aggiungiOrdine()" type="submit" class="btn btn-primary">Salva ordine</button>
     </div>
     <script>
+        //variabile con scopo globale a livello di pagina
         var databaseOrdini = [];
+        //funzione per l'aggiunta dell'ordine del tavolo
         function aggiungiOrdine(){
             var numeroTavolo = parseInt(document.getElementById("tavolo").value);
             var nuovoOrdine = document.getElementById("ordine").value;
@@ -90,11 +92,13 @@
                     ordine: nuovoOrdine
                 });
             }
+            //ripristino i campi di input
             document.getElementById("tavolo").value = '';
             document.getElementById("ordine").value = '';
         }
 
         function mostraOrdine(numeroTavolo){
+            //stampo l'ordine nella div
             var divVisualizza = document.getElementById("visualizza");
             for (let i = 0; i < databaseOrdini.length; i++) {
                 const ordineDB = databaseOrdini[i];
