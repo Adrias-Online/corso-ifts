@@ -43,15 +43,36 @@
         </div>
     </div>
     <script>
+        //scorro le immagini verso dietro
         var prev = document.getElementById("prev");
         prev.onclick = function(){
-            switchImage((i, l) => i > 0 ? i - 1 : l - 1);
+            /*
+            function(posizioneCorrente, numeroImmagini){
+                if (posizioneCorrente > 0){
+                    return posizioneCorrente - 1;
+                }else{
+                    return numeroImmagini - 1;
+                }
+            }
+            */
+            switchImage((posizioneCorrente, numeroImmagini) => posizioneCorrente > 0 ? posizioneCorrente - 1 : numeroImmagini - 1);
         };
+        //scorro le immagini verso avanti
         var next = document.getElementById("next");
         next.onclick = function(){
-            switchImage((i, l) => i >= 0 && i < l - 1 ? i + 1 : 0);
+            /*
+            function(posizioneCorrente, numeroImmagini){
+                if (posizioneCorrente >= 0 && posizioneCorrente < numeroImmagini - 1){
+                    return posizioneCorrente + 1;
+                }else{
+                    return 0;
+                }
+            }
+            */
+            switchImage((posizioneCorrente, numeroImmagini) => posizioneCorrente >= 0 && posizioneCorrente < numeroImmagini - 1 ? posizioneCorrente + 1 : 0);
         };
-        function switchImage(x){
+        
+        function switchImage(funzioneCalcolaPosizione){
             var galleria = document.getElementById("galleria");
             var imgs = galleria.getElementsByTagName('img');
             var p = 0;
@@ -59,7 +80,8 @@
             for (let i = 0; i < imgs.length; i++) {
                 const element = imgs[i];
                 if (element.className === "d-inline"){
-                    p = x(i, imgs.length);
+                    //funzione
+                    p = funzioneCalcolaPosizione(i, imgs.length); //invoco la funzione in input con i parametri relativi a questa esecuzione.
                     c = i;
                     break;
                 }
