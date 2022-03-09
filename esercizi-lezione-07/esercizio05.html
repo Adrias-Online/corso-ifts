@@ -90,6 +90,8 @@
                     ordine: nuovoOrdine
                 });
             }
+            document.getElementById("tavolo").value = '';
+            document.getElementById("ordine").value = '';
         }
 
         function mostraOrdine(numeroTavolo){
@@ -97,7 +99,12 @@
             for (let i = 0; i < databaseOrdini.length; i++) {
                 const ordineDB = databaseOrdini[i];
                 if (ordineDB.numeroTavolo === numeroTavolo){
-                    divVisualizza.append(ordineDB.ordine);
+                    var h2 = document.createElement("h2");
+                    h2.innerHTML = "Visualizzo ordine del tavolo n° "+ numeroTavolo;
+                    divVisualizza.append(h2);
+                    var span = document.createElement("span");
+                    span.append(ordineDB.ordine);
+                    divVisualizza.append(span);
                 }
             }
         }
