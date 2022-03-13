@@ -1,6 +1,6 @@
 /**
  * Scrivere una funzione che abbia in input una stringa contenente un Json e 
- * restituisca in output l'oggetto contatto rappresentatto nel json.
+ * restituisca in output l'oggetto contatto rappresentato nel json.
  */
 
 function contattoFromJson(value){
