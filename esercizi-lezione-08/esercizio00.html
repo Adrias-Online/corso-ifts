@@ -30,10 +30,7 @@
         var div3 = document.getElementById("div3");
 
         var handler = function(event){
-            if (event.target.id === "div3"){
-                event.stopPropagation();
-            }
-            alert(event.target.id);
+            alert(event.currentTarget.id);
         }
         div1.addEventListener("click", handler);
         div2.addEventListener("click", handler);
