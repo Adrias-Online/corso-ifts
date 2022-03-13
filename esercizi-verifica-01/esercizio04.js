@@ -1,30 +1,13 @@
 /**
- * Scrivi un programma che prenda in input un array multidimensionale 
- * e stampi in output la sua trasposta. 
- * Esempio: 
- *  Input: [
- *  [1, 2],
- *  [3, 4],
- *  [5, 6]
- * ] 
- * 
- * Output:
- *  [
- *      [1, 3, 5],
- *      [2, 4, 6]
- *  ]
+ * Scrivi una funzione che prenda in input un numero intero e 
+ * restituisca 0 se è pari o 1 se è dispari.
  */
- function trasposta(matrice) {
-    var trasposta = [];
-    var numeroColonne = matrice.length;
-    var numeroRighe = matrice.length > 0 ? matrice[0].length : 0; //un semplice check sul primo elemento
-    for (var i = 0; i < numeroRighe; i++) {
-        var nuovaRiga = [];
-        for (var j = 0; j < numeroColonne; j++) {
-            nuovaRiga.push(matrice[j][i]);
-        }
-        trasposta.push(nuovaRiga);
+function isDispari(value){
+    if (isNaN(value)){
+        return null; // se non è un numero torno null
     }
-    return trasposta;
-} 
-console.dir(trasposta([[1, 2, 3],[4, 5, 6],[7, 8, 9]]));
+    return value % 2;
+}
+console.log(isDispari(1));
+console.log(isDispari(2));
+console.log(isDispari(0));
