@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>La mia rubrica</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Corso IFTS</a>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <span data-feather="home"></span>
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contatti.html">
+                <span data-feather="file"></span>
+                Contatti
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="aggiungi-contatto.html">
+                <span data-feather="file"></span>
+                Aggiungi Contatto <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <div class="container mt-2">
+          <div class="row">
+            <div class="col h2">Nuovo contatto</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div id="risultato"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md">
+              <form id="aggiungiContatto" action="#" method="POST">
+                <div class="form-group row">
+                  <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Inserisci il nome" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="cognome" class="col-sm-2 col-form-label">Cognome</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="cognome" id="cognome" placeholder="Inserisci il cognome" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Inserisci l'email" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="numeroDiTelefono" class="col-sm-2 col-form-label">Telefono</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="numeroDiTelefono" id="numeroDiTelefono" placeholder="Inserisci il telefono" />
+                  </div>
+                </div>
+                <button id="aggiungiContattoBtn" type="submit" class="btn btn-primary">Aggiungi</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script>
+    var form = document.getElementById("aggiungiContatto");
+    var btn = document.getElementById("aggiungiContattoBtn");
+
+    form.onsubmit = (event) => {
+      event.preventDefault();
+      var formData = new FormData(form);
+      var object = {};
+      formData.forEach(function(value, key){
+          object[key] = value;
+      });
+
+      var json = JSON.stringify(object);
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://ifts.adriasonline.com/contatti');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(json);
+      
+      xhr.onerror = function () {
+        var risultato = document.getElementById("risultato");
+        risultato.innerHTML = "Contatto non creato per errore del server.";
+        risultato.className = "alert alert-danger";
+      };
+      xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status <= 299) {
+          var risultato = document.getElementById("risultato");
+          risultato.innerHTML = "Contatto creato correttamente!";
+          risultato.className = "alert alert-success";
+          form.reset();
+        } else {
+          var risultato = document.getElementById("risultato");
+          risultato.innerHTML = "Contatto non creato per errore del server.";
+          risultato.className = "alert alert-danger";
+        }
+      };
+      
+    };
+  </script>
+</body>
+
+</html>
