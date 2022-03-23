@@ -10,6 +10,7 @@
     integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
   <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -60,6 +61,10 @@
   <script>
     
     document.addEventListener('DOMContentLoaded', (event) => {
+      caricaConttti();
+    });
+
+    function caricaConttti(){
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://ifts.adriasonline.com/contatti');
       xhr.responseType = 'json';
@@ -67,11 +72,11 @@
       xhr.onload = function () {
           stampaContatti(xhr.response);
       };
-    });
+    }
 
     function stampaContatti(contatti) {
       var rubrica = document.getElementById("contatti");
-      rubrica.innerHTML = "<div class='row text-light bg-dark'><div class='col h4'>Nome</div><div class='col h4'>Cognome</div><div class='col h4'>Email</div><div class='col h4'>Numero di telefono</div></div>";
+      rubrica.innerHTML = "<div class='row text-light bg-dark'><div class='col h4'>Nome</div><div class='col h4'>Cognome</div><div class='col h4'>Email</div><div class='col h4'>Numero di telefono</div><div class='col h4'>Azioni</div></div>";
       for (var i = 0; i < contatti.length; i++) {
         var contatto = contatti[i];
         var divRow = document.createElement("div");
@@ -92,6 +97,29 @@
         + "<div class='col-md border'>" + contatto.cognome + "</div>" 
         + "<div class='col-md border'>" + email + "</div>" 
         + "<div class='col-md border'>" + numeroTel + "</div>";
+        var divButton = document.createElement("div");
+        divButton.className = "col-md border";
+        var deleteIcon = document.createElement("button");
+        deleteIcon.className = "btn btn-danger";
+        deleteIcon["data-id"] = contatto.id;
+        deleteIcon.onclick = function(e){
+          var xhr = new XMLHttpRequest();
+          xhr.open('DELETE', 'https://ifts.adriasonline.com/contatti/' + this["data-id"]);
+          xhr.responseType = 'json';
+          xhr.send();
+          xhr.onload = function () {
+            caricaConttti();
+          };
+          e.preventDefault();
+        }
+        deleteIcon.innerHTML = "Elimina";
+        var editLink = document.createElement("a");
+        editLink.href = "modifica-contatto.html?id=" + contatto.id;
+        editLink.className = "btn btn-warning";
+        editLink.innerHTML = "Modifica";
+        divButton.append(editLink);
+        divButton.append(deleteIcon);
+        divRow.append(divButton);
         rubrica.append(divRow);
       }
     }
