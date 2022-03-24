@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css"
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="client-http.js"></script>
+  <script src="rubrica.js"></script>
 </head>
 
 <body>
@@ -52,77 +54,24 @@
               <h2>Contatti</h2>
             </div>
           </div>
-        </div>
-        <div id="contatti" class="container">
+          <div class="row">
+            <div class="col">
+              <div id="contatti" class="container">
+              </div>
+              <div id="spinner" class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>
   </div>
   <script>
-    
+    var risultato = document.getElementById("risultato");
     document.addEventListener('DOMContentLoaded', (event) => {
-      caricaConttti();
+      caricaContatti(risultato);
     });
-
-    function caricaConttti(){
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://ifts.adriasonline.com/contatti');
-      xhr.responseType = 'json';
-      xhr.send();
-      xhr.onload = function () {
-          stampaContatti(xhr.response);
-      };
-    }
-
-    function stampaContatti(contatti) {
-      var rubrica = document.getElementById("contatti");
-      rubrica.innerHTML = "<div class='row text-light bg-dark'><div class='col h4'>Nome</div><div class='col h4'>Cognome</div><div class='col h4'>Email</div><div class='col h4'>Numero di telefono</div><div class='col h4'>Azioni</div></div>";
-      for (var i = 0; i < contatti.length; i++) {
-        var contatto = contatti[i];
-        var divRow = document.createElement("div");
-        if (i % 2 == 0) {
-          divRow.className = "row text-light bg-secondary";
-        } else {
-          divRow.className = "row bg-light";
-        }
-        var email = "--";
-        if (contatto.email !== null){
-          email = contatto.email;
-        }
-        var numeroTel = "--";
-        if (contatto.numeroDiTelefono !== null){
-          numeroTel = contatto.numeroDiTelefono;
-        }
-        divRow.innerHTML = "<div class='col-md border'>" + contatto.nome + "</div>" 
-        + "<div class='col-md border'>" + contatto.cognome + "</div>" 
-        + "<div class='col-md border'>" + email + "</div>" 
-        + "<div class='col-md border'>" + numeroTel + "</div>";
-        var divButton = document.createElement("div");
-        divButton.className = "col-md border";
-        var deleteIcon = document.createElement("button");
-        deleteIcon.className = "btn btn-danger";
-        deleteIcon["data-id"] = contatto.id;
-        deleteIcon.onclick = function(e){
-          var xhr = new XMLHttpRequest();
-          xhr.open('DELETE', 'https://ifts.adriasonline.com/contatti/' + this["data-id"]);
-          xhr.responseType = 'json';
-          xhr.send();
-          xhr.onload = function () {
-            caricaConttti();
-          };
-          e.preventDefault();
-        }
-        deleteIcon.innerHTML = "Elimina";
-        var editLink = document.createElement("a");
-        editLink.href = "modifica-contatto.html?id=" + contatto.id;
-        editLink.className = "btn btn-warning";
-        editLink.innerHTML = "Modifica";
-        divButton.append(editLink);
-        divButton.append(deleteIcon);
-        divRow.append(divButton);
-        rubrica.append(divRow);
-      }
-    }
 
   </script>
 </body>

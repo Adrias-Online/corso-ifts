@@ -11,6 +11,8 @@
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css"
     crossorigin="anonymous">
+  <script src="client-http.js"></script>
+  <script src="rubrica.js"></script>
 </head>
 
 <body>
@@ -92,58 +94,18 @@
     </div>
   </div>
   <script>
+    var form = document.getElementById("aggiungiContatto");
+    var risultato = document.getElementById("risultato");
+
     document.addEventListener('DOMContentLoaded', (event) => {
       const urlSearchParams = new URLSearchParams(window.location.search);
       const params = Object.fromEntries(urlSearchParams.entries());
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'https://ifts.adriasonline.com/contatti/' + params.id);
-      xhr.responseType = 'json';
-      xhr.send();
-      xhr.onload = function () {
-          var contatto = xhr.response;
-          document.getElementById("id").value = contatto.id;
-          document.getElementById("nome").value = contatto.nome;
-          document.getElementById("cognome").value = contatto.cognome;
-          document.getElementById("email").value = contatto.email;
-          document.getElementById("numeroDiTelefono").value = contatto.numeroDiTelefono;
-      };
-      
+      caricaContatto(params.id, risultato);
     });
-    var form = document.getElementById("aggiungiContatto");
-    var btn = document.getElementById("aggiungiContattoBtn");
 
     form.onsubmit = (event) => {
       event.preventDefault();
-      var formData = new FormData(form);
-      var object = {};
-      formData.forEach(function(value, key){
-          object[key] = value;
-      });
-
-      var json = JSON.stringify(object);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://ifts.adriasonline.com/contatti');
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.send(json);
-      
-      xhr.onerror = function () {
-        var risultato = document.getElementById("risultato");
-        risultato.innerHTML = "Contatto non creato per errore del server.";
-        risultato.className = "alert alert-danger";
-      };
-      xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status <= 299) {
-          var risultato = document.getElementById("risultato");
-          risultato.innerHTML = "Contatto creato correttamente!";
-          risultato.className = "alert alert-success";
-        } else {
-          var risultato = document.getElementById("risultato");
-          risultato.innerHTML = "Contatto non creato per errore del server.";
-          risultato.className = "alert alert-danger";
-        }
-      };
-      
+      salvaContatto(form, risultato);
     };
   </script>
 </body>
