@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>La mia rubrica</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col">
+                <form id="formUpload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file">
+                    <button type="submit" role="button">Upload File</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        let form = document.getElementById("formUpload");
+        // add event listener
+        form.addEventListener('submit', e => {
+
+            // disable default action
+            e.preventDefault();
+
+            // collect files
+            let files = document.querySelector('[name=file]').files;
+            let formData = new FormData();
+            formData.append('file', files[0]);
+
+            // post form data
+            const xhr = new XMLHttpRequest();
+
+            // log response
+            xhr.onload = () => {
+                console.log(xhr.status);
+                console.log(xhr.response); //size in byte
+            };
+
+            // create and send the reqeust
+            xhr.open('POST', 'http://localhost:8080/upload');
+            xhr.send(formData);
+
+        });
+    </script>
+</body>
+
+</html>
